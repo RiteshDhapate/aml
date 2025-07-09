@@ -248,7 +248,7 @@ export default function PersonProfile({ data, onReset }: PersonProfileProps) {
               <InfoItem label="First Seen" value={formatDate(result.first_seen)} />
               <InfoItem label="Last Seen" value={formatDate(result.last_seen)} />
               <InfoItem label="Last Modified" value={getFirst(props.modifiedAt)} />
-              <InfoItem
+              {/* <InfoItem
                 label="Website"
                 value={
                   props.website && props.website[0] ? (
@@ -264,7 +264,7 @@ export default function PersonProfile({ data, onReset }: PersonProfileProps) {
                     "N/A"
                   )
                 }
-              />
+              /> */}
             </div>
           </section>
         </div>
