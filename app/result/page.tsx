@@ -80,17 +80,31 @@ export default function ResultPage() {
 
   if (!data || !data.response.results.length) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-center max-w-lg mx-auto p-6">
-          <div className="text-gray-400 text-6xl mb-6">🔍</div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">No Records Found</h2>
-        <div className="bg-yellow-200 p-5 rounded-lg">
-        <div>Search Completed Successfully</div>
-        <div>No AML records were found for the provided search criteria.</div>
-        </div>
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+        <div className="max-w-lg w-full bg-white p-8 rounded-lg shadow-lg text-center">
+          <div className="text-gray-400 text-7xl mb-6 select-none">🔍</div>
+          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+            No Records Found
+          </h2>
+          <div className="bg-yellow-200 p-6 rounded-lg mb-6 text-yellow-900">
+            <p className="mb-2 font-medium">Search Completed Successfully</p>
+            <p>No AML records were found for the provided search criteria.</p>
+          </div>
+          <ul className="text-left list-disc list-inside text-gray-700 space-y-2 mb-6">
+            <li>No records found on international AML databases.</li>
+            <li>No sanctions, watchlists, or PEP data available.</li>
+            <li>Data is sourced from 25+ international databases.</li>
+          </ul>
+          <button
+            onClick={handleRetry}
+            className="bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-bold py-3 px-6 rounded shadow"
+            type="button"
+          >
+            Retry Search
+          </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
