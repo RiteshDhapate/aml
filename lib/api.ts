@@ -48,7 +48,7 @@ export interface AMLResponse {
 }
 
 export async function fetchAMLData(crmToken: string): Promise<AMLResponse> {
-  const url = `https://guest-app-api.therufescent.com/api/leads/aml_result?crm_token=${encodeURIComponent(crmToken)}`
+  const url = `https://production-guest-app.rufescent.therufescent.com/api/leads/aml_result?crm_token=${encodeURIComponent(crmToken)}`
 
   const response = await fetch(url, {
     method: "GET",
