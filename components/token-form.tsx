@@ -31,7 +31,7 @@ export default function TokenForm({ onSubmit }: TokenFormProps) {
               AML Search Portal
             </h1>
             <p className="text-muted-foreground">
-              Enter your CRM token to search AML databases
+              Enter your info to search AML databases
             </p>
           </div>
 
