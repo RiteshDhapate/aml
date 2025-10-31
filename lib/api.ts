@@ -79,7 +79,7 @@ export async function fetchSanctionsData(
   name: string,
   dateOfBirth: string
 ): Promise<AMLResponse> {
-  const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/leads/sanctions`;
+  const baseUrl = `${process.env.NEXT_PUBLIC_API_URL_DEV}/api/leads/sanctions`;
   const params = new URLSearchParams({
     name,
     cDateOfBirth: dateOfBirth,
