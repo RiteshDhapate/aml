@@ -48,7 +48,7 @@ export interface AMLResponse {
 }
 
 export async function fetchAMLData(crmToken: string): Promise<AMLResponse> {
-  const url = `https://production-guest-app.rufescent.therufescent.com/api/leads/aml_result?crm_token=${encodeURIComponent(crmToken)}`
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/leads/aml_result?crm_token=${encodeURIComponent(crmToken)}`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -79,7 +79,7 @@ export async function fetchSanctionsData(
   name: string,
   dateOfBirth: string
 ): Promise<AMLResponse> {
-  const baseUrl = "http://localhost:8000/api/leads/sanctions";
+  const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/leads/sanctions`;
   const params = new URLSearchParams({
     name,
     cDateOfBirth: dateOfBirth,
