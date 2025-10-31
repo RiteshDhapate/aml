@@ -78,7 +78,7 @@ export default function ResultPage() {
     )
   }
 
-  if (!data || !data.response.results.length) {
+  if (!data || !data.response?.results?.length) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
         <div className="max-w-lg w-full bg-white p-8 rounded-lg shadow-lg text-center">

@@ -10,6 +10,7 @@ interface PersonProfileProps {
 
 export default function PersonProfile({ data, onReset }: PersonProfileProps) {
   const result = data.response.results[0]
+  console.log(result)
   const props = result.properties
 
   // Helper function to get first value from array or return default

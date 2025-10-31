@@ -3,7 +3,7 @@
 import { useState } from "react"
 import PersonProfile from "@/components/person-profile"
 import TokenForm from "@/components/token-form"
-import { fetchAMLData, type AMLResponse } from "@/lib/api"
+import { fetchAMLData, fetchSanctionsData, type AMLResponse } from "@/lib/api"
 
 export default function Home() {
   const [data, setData] = useState<AMLResponse | null>(null)
@@ -11,20 +11,21 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null)
   const [hasSearched, setHasSearched] = useState(false)
 
-  const handleTokenSubmit = async (token: string) => {
+  const handleTokenSubmit = async (name: string, dateOfBirth: string) => {
     try {
-      setLoading(true)
-      setError(null)
-      setHasSearched(true)
-      const result = await fetchAMLData(token)
-      setData(result)
+      setLoading(true);
+      setError(null);
+      setHasSearched(true);
+      const result = await fetchSanctionsData(name, dateOfBirth);
+      setData(result);
+      console.log(result)
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch data")
-      setData(null)
+      setError(err instanceof Error ? err.message : "Failed to fetch data");
+      setData(null);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleReset = () => {
     setData(null)
@@ -62,7 +63,7 @@ export default function Home() {
     )
   }
 
-  if (hasSearched && (!data || !data.response.results.length)) {
+  if (hasSearched && (!data || !data.response?.results?.length)) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">

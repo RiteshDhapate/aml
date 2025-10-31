@@ -72,3 +72,48 @@ export async function fetchAMLData(crmToken: string): Promise<AMLResponse> {
   const data: AMLResponse = await response.json()
   return data
 }
+
+
+
+export async function fetchSanctionsData(
+  name: string,
+  dateOfBirth: string
+): Promise<AMLResponse> {
+  const baseUrl = "http://localhost:8000/api/leads/sanctions";
+  const params = new URLSearchParams({
+    name,
+    cDateOfBirth: dateOfBirth,
+  });
+
+  const url = `${baseUrl}?${params.toString()}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "server-token": "guestapp_9666f9e7-9c0d-4e0d-8e7a-8b9c9e7f9c0d",
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error(
+        "Invalid or expired server token. Please check your credentials."
+      );
+    } else if (response.status === 404) {
+      throw new Error("API endpoint not found. Please verify the URL.");
+    } else if (response.status >= 500) {
+      throw new Error("Internal server error. Please try again later.");
+    } else {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  }
+
+  const responseData={
+    "response": await response.json()
+  }
+
+  const data: AMLResponse = responseData;
+  return data;
+}
