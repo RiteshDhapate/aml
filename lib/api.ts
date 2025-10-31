@@ -88,7 +88,7 @@ export async function fetchSanctionsData(
   const url = `${baseUrl}?${params.toString()}`;
 
   const response = await fetch(url, {
-    method: "GET",
+    method: "POST",
     headers: {
       accept: "application/json",
       "server-token": "guestapp_9666f9e7-9c0d-4e0d-8e7a-8b9c9e7f9c0d",
