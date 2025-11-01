@@ -12,3 +12,4 @@ n# UI Modernization Tasks
 - [x] Add date picker with auto-complete for date of birth in YYYY-MM-DD format
 - [x] Add client-side validation for date of birth (not future date, valid date)
 - [x] Update form submission to handle formatted date
+- [x] Add validation to ensure complete date selection (year, month, and day) before submission

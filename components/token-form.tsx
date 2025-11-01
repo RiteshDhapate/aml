@@ -87,7 +87,16 @@ export default function TokenForm({ onSubmit }: TokenFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-  
+    // Check if date is complete
+    if (!selectedYear || !selectedMonth || !selectedDay) {
+      toast({
+        title: "Validation Error",
+        description:
+          "Please select a complete date of birth (year, month, and day).",
+        variant: "destructive",
+      });
+      return;
+    }
 
     const today = new Date();
     if (dateOfBirth && dateOfBirth > today) {
@@ -99,12 +108,11 @@ export default function TokenForm({ onSubmit }: TokenFormProps) {
       return;
     }
 
-    let formattedDate="";
+    let formattedDate = "";
 
-    if (dateOfBirth){
+    if (dateOfBirth) {
       formattedDate = format(dateOfBirth, "yyyy-MM-dd");
-    } 
-      
+    }
 
     setIsValidating(true);
     await onSubmit(name.trim(), formattedDate);
@@ -206,7 +214,13 @@ export default function TokenForm({ onSubmit }: TokenFormProps) {
             <div className="flex gap-3">
               <button
                 type="submit"
-                disabled={isValidating || (!name.trim() && !dateOfBirth)}
+                disabled={
+                  isValidating ||
+                  (!name.trim() && !dateOfBirth) ||
+                  !selectedYear ||
+                  !selectedMonth ||
+                  !selectedDay
+                }
                 className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70  disabled:cursor-not-allowed text-primary-foreground font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:transform-none"
               >
                 {isValidating ? (
