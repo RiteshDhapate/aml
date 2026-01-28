@@ -1,3 +1,5 @@
+import { generateAuthHeaders } from "./utils"
+
 export interface AMLResponse {
   response: {
     query: {
@@ -47,13 +49,29 @@ export interface AMLResponse {
   }
 }
 
+/**
+ * Gets the HMAC secret key from environment variable or falls back to default
+ */
+function getSecretKey(): string {
+  return (
+    process.env.NEXT_PUBLIC_HMAC_SECRET_KEY ||
+    "sdfghdvghdndvdvfsfdfsvdffsdfsdfwerweereer45353sd"
+  )
+}
+
 export async function fetchAMLData(crmToken: string): Promise<AMLResponse> {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/leads/aml_result?crm_token=${encodeURIComponent(crmToken)}`;
+  const secretKey = getSecretKey()
+
+  // Generate authentication headers for GET request (empty body)
+  const authHeaders = await generateAuthHeaders("GET", "", secretKey)
 
   const response = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "X-Signature": authHeaders["X-Signature"],
+      "X-Timestamp": authHeaders["X-Timestamp"],
     },
   })
 
@@ -86,6 +104,13 @@ export async function fetchSanctionsData(
   });
 
   const url = `${baseUrl}?${params.toString()}`;
+  const secretKey = getSecretKey()
+
+  // For POST requests, body should be empty string (as per the HTML example)
+  // The HTML example shows body is only used if it's JSON, but in this case
+  // the parameters are in the URL, so body is empty
+  const body = ""
+  const authHeaders = await generateAuthHeaders("POST", body, secretKey)
 
   const response = await fetch(url, {
     method: "POST",
@@ -93,6 +118,8 @@ export async function fetchSanctionsData(
       accept: "application/json",
       "server-token": "guestapp_9666f9e7-9c0d-4e0d-8e7a-8b9c9e7f9c0d",
       "Content-Type": "application/json",
+      "X-Signature": authHeaders["X-Signature"],
+      "X-Timestamp": authHeaders["X-Timestamp"],
     },
   });
 
